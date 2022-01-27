@@ -1,34 +1,37 @@
-pipeline {
-	agent any
-	
-	stages {
-		stage ('compile stage') {
-		
-			steps {
-			withMaven(maven : 'Maven3_8') {
-				sh 'mvn clean compile'
-				}
-			}
-		}
-		
-		stage ('testing stage') {
-		
-			steps {
-			withMaven(maven : 'Maven3_8') {
-				sh 'mvn test'
-				}
-			}
-		}
-		
-		stage ('deployment stage') {
-		
-			steps {
-			withMaven(maven : 'Maven3_8') {
-				sh 'mvn deploy'
-				}
-			}
-		}
-	}
+pipeline{
+    agent any
+    tools{maven 'Maven3_8'}
+    stages{
+        stage('Checkout'){
+            steps{
+                git '.git file location'
+            }
+        }
+        stage('Package'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage('Build Docker Image'){
+            steps{
+                sh 'docker build -t dockerhub username/any name for image .'
+            }
+        }
+        stage('Deploy Docker Image') {
+            steps {
+                script {
+                 withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                 sh 'docker login -u dockerhub username -p ${dockerhubpwd}'
+    }
+                 sh 'docker push username of dockerhub image name/:latest'
+                }
+            }
+        }
+        
+    }
+ 
 }
+
+
 		
 			
