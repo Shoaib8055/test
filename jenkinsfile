@@ -2,11 +2,6 @@ pipeline{
     agent any
     tools{maven 'Maven3_8'}
     stages{
-        stage('Checkout'){
-            steps{
-                git '.git file location'
-            }
-        }
         stage('Package'){
             steps{
                 sh 'mvn package'
