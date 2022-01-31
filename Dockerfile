@@ -1,4 +1,9 @@
-FROM openjdk:11
-EXPOSE 8080
-ADD target/services-module.jar services-module.jar
-ENTRYPOINT ["java", "-jar", "/services-module.jar"]
+FROM adoptopenjdk/openjdk11:ubi
+
+ARG JAR_FILE=/target/services-module.jar
+
+COPY ${JAR_FILE} myapp.jar
+
+EXPOSE 9003
+
+ENTRYPOINT ["java","-jar" , "/myapp.jar"]
