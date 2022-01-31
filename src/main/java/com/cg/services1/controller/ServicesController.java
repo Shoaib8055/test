@@ -23,7 +23,7 @@ import com.cg.services1.service.ServicesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("*")
 @Api("Operations performed on services")
 @RestController
 @RequestMapping("/services")
