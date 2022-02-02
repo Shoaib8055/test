@@ -1,78 +1,33 @@
 apiVersion: apps/v1 #version of the Kubernetes API you're using to create this object
-
-kind: Deployment #What kind of object you want to create
-
-metadata:
-#deployment name, helps uniquely identify the object
-
-name: services
-
-spec:
-
-selector:
-
-matchLabels:
-
-app: services
-
-replicas: 1 
-# tells deployment to run 1 pods matching the template
-
-template:
-
-metadata:
-
-labels:
-
-app: services
-
-spec:
-#What state you desire for the object
-
-containers:
-
-- 
-name: services 
-#container name
-
-image: 'shoaib8055/myapp-5:servicesimage'
-#image name
-
-ports:
-
-- 
-containerPort: 9003
-# demo runs on port 8080
-
+kind: Deployment  #What kind of object you want to create
+metadata: #deployment name, helps uniquely identify the object
+   name: services
+spec:  
+  selector:
+    matchLabels:
+      app: services
+  replicas: 1 # tells deployment to run 1 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: services
+    spec:   #What state you desire for the object
+      containers:
+      - name: services #container name
+        image: 'shoaib8055/myapp-6:servicesmoduleimage' #image name
+        ports:
+        - containerPort: 9003 # demo runs on port 8080
 ---
-
 apiVersion: v1
-
 kind: Service #What kind of object you want to create
-
-metadata:
-#service name,Data that helps uniquely identify the object
-
-name: services
-
-spec:
-#What state you desire for the object
-
-selector:
-
-app: services
-
-ports:
-
-- 
-port: 80 
-#port at which service is internally available
-
-targetPort: 9003
-#port of container
-
-#nodePort: 30001 # port at which service is externally available range 30000-32767 
-
-name: services
-
-type: LoadBalancer
+metadata: #service name,Data that helps uniquely identify the object
+  name: services
+spec: #What state you desire for the object
+  selector:
+    app: services
+  ports:
+    - port: 80  #port at which service is internally available
+      targetPort: 9003 #port of container
+      #nodePort: 30001  # port at which service is externally available  range 30000- 32767 
+      name: services
+  type: LoadBalancer
