@@ -98,8 +98,15 @@ public class ServicesController {
 	}*/
 	
 	@ApiOperation(value = "To update a service based on serviceId")
-	@PutMapping("/update")
-	public Services updateServices(@RequestBody Services services) {
-		return service.updateServices(services);
+	@PutMapping("/update/{servicesId}")
+	public Services updateServices(@PathVariable("servicesId") Long servicesId, @RequestBody Services services) throws Exception {
+		return service.updateServices(servicesId, services);
 	}
+	
+	@ApiOperation(value="To list all services based on ServiceCategory")
+	@GetMapping("/category")
+	public List<String> getAllServicesByCategory(){
+		return service.getAllServicesByCategory();
+	}
+	
 }

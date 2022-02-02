@@ -2,7 +2,7 @@ server:
   port: 9003
   
   
-spring.datasource.url: jdbc:postgresql://52.91.50.123:5432/postgres  
+spring.datasource.url: jdbc:postgresql://postgres:5432/services
 spring.datasource.username: postgres
 spring.datasource.password: root
 

@@ -1,5 +1,6 @@
 package com.cg.services1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,13 +74,34 @@ public class ServicesService {
 		}
 	}
 
-	public Services updateServices(Services services) {
-		Services existingServices = repository.findById(services.getServicesId()).orElseGet(null);
+	public Services updateServices(Long servicesId, Services services) throws Exception {
+		Services existingServices = repository.findByServicesId(servicesId);
+		Services service = new Services();
+		if(existingServices == null) {
+			throw new Exception("Service Id not found");
+		}
+		else {
 		existingServices.setServicesName(services.getServicesName());
 		existingServices.setServicesCategory(services.getServicesCategory());
 		existingServices.setServicesPrice(services.getServicesPrice());
 		existingServices.setMerchantId(services.getMerchantId());
 		return repository.save(existingServices);
+	}
+	}
+
+	public List<String> getAllServicesByCategory() {
+		List<Services> services = repository.findAll();
+		List<String> category = new ArrayList<>();
+		for(int index = 0; index < services.size(); index++) {
+			category.add(index, services.get(index).getServicesCategory());
+		}
+		List<String> updatedCategory = new ArrayList<>();
+		for(String servicesCategory : category) {
+			if(!updatedCategory.contains(servicesCategory)) {
+				updatedCategory.add(servicesCategory);
+			}
+		}
+		return updatedCategory;
 	}
 
 	
