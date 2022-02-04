@@ -14,7 +14,7 @@ spec:
     spec:   #What state you desire for the object
       containers:
       - name: services #container name
-        image: 'shoaib8055/myapp-6:servicemoduleimage' #image name
+        image: 'shoaib8055/myapp-6:servicesmoduleimage' #image name
         ports:
         - containerPort: 9003 # demo runs on port 8080
 ---
